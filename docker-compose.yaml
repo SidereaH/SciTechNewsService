@@ -1,0 +1,37 @@
+services:
+  postgres-test:
+    image: postgres:15
+    container_name: postgres-test
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-data:/data/postgres
+      - ./initdb:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"
+
+
+#  user-service_test:
+#    image: aliquamsiderea/homerep_userservice:0.0.1
+##    build: .
+#    container_name: userservice_container
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-test:5432/homerep_userservice
+#      - SPRING_DATASOURCE_USERNAME=postgres
+#      - SPRING_DATASOURCE_PASSWORD=postgres
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+#      - HOMEREP_SECRET=yo78$$dontCrackPleaseASdujisdufasbasu
+#      - HOMEREP_LIFETIME=600000
+#    ports:
+#      - "8083:8083"
+#    depends_on:
+#      - postgres-test
+#    restart: unless-stopped
+
+volumes:
+  postgres-data:
+#  timescaledb-data:
+
