@@ -9,6 +9,8 @@ import org.jsoup.nodes.Element;
 
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -31,9 +33,23 @@ public class NewsObject {
     @Lob
     private String content;
     private String url;
+    private int likes;
+    private int shows;
     //теги по принадлежности статьи
-    @OneToMany
-    private List<NewsTag> tags;
+//    @OneToMany
+//    private List<NewsTag> tags;
+    @Column(length = 1000)
+    private String tags; // "технологии,наука,политика"
+
+    private LocalDate dateOfCreation;
+
+    public List<String> getTagsList() {
+        return Arrays.asList(this.tags.split(","));
+    }
+
+    public void setTagsList(List<String> tags) {
+        this.tags = String.join(",", tags);
+    }
 
 
 }
