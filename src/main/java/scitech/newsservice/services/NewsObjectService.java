@@ -69,6 +69,7 @@ public class NewsObjectService {
         NewsObject saved = newsObjectRepo.save(news);
         return newsMapper.toDto(saved);
     }
+
     @Transactional(readOnly = true)
     public Page<NewsDto> findAllWithFilters(
             String title,
@@ -126,4 +127,24 @@ public class NewsObjectService {
                         ))
                 .map(newsMapper::toDto);
     }
+
+    //stats
+
+    @Transactional
+    public Integer addLikes(Long newsId) {
+        NewsObject newsObj = newsObjectRepo.findById(newsId).orElseThrow(() -> new EntityNotFoundException("News not found with id: " + newsId));
+
+        newsObj.setLikes(newsObj.getLikes() + 1);
+        newsObjectRepo.save(newsObj);
+        return newsObj.getLikes();
+    }
+    @Transactional
+    public Integer addShows(Long newsId) {
+        NewsObject newsObj = newsObjectRepo.findById(newsId).orElseThrow(() -> new EntityNotFoundException("News not found with id: " + newsId));
+
+        newsObj.setShows(newsObj.getShows() + 1);
+        newsObjectRepo.save(newsObj);
+        return newsObj.getShows();
+    }
+
 }

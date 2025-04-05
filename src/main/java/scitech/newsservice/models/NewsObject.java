@@ -51,5 +51,9 @@ public class NewsObject {
         this.tags = String.join(",", tags);
     }
 
+    //newsObject.setContent(jsoupElement.outerHtml());
+
+    //Element element = Jsoup.parse(newsObject.getContent()).body();
+
 
 }
