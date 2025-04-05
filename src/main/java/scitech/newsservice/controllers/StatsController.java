@@ -4,9 +4,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
+import org.hibernate.proxy.EntityNotFoundDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import scitech.newsservice.models.dto.StatsResponseDto;
 import scitech.newsservice.repositories.NewsObjectRepo;
 import scitech.newsservice.services.NewsObjectService;
 
@@ -45,9 +48,20 @@ public class StatsController {
             }
     )
     @PatchMapping("/add-like")
-    public ResponseEntity<Integer> addLike(
+    public ResponseEntity<StatsResponseDto> addLike(
             @Parameter(description = "ID новости", required = true, example = "1")
             @RequestParam Long newsId) {
-        return ResponseEntity.ok(newsObjectService.addLikes(newsId));
+        Integer newsLikes;
+        try{
+            newsLikes = newsObjectService.addLikes(newsId);
+        }
+            catch(EntityNotFoundException e){
+                return ResponseEntity.badRequest().body(
+                        new StatsResponseDto(
+                                e.getMessage(), false
+                        )
+                );
+        }
+        return ResponseEntity.ok(new StatsResponseDto(newsLikes.toString(),true));
     }
 }
