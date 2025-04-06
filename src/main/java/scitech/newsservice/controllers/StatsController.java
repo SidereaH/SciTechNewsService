@@ -68,8 +68,8 @@ public class StatsController {
                     )
             }
     )
-    @PatchMapping("/add-show")
-    public ResponseEntity<Integer> addShow(@RequestParam Long newsId) {
+    @PatchMapping("/add-show/{newsId}")
+    public ResponseEntity<Integer> addShow(@PathVariable Long newsId) {
         return ResponseEntity.ok(newsObjectService.addShows(newsId));
     }
 
@@ -118,8 +118,8 @@ public class StatsController {
                     )
             }
     )
-    @PatchMapping("/add-like")
-    public ResponseEntity<StatsResponseDto> addLike(@RequestParam Long newsId) {
+    @PatchMapping("/add-like/{newsId}")
+    public ResponseEntity<StatsResponseDto> addLike(@PathVariable Long newsId) {
         try {
             Integer newsLikes = newsObjectService.addLikes(newsId);
             return ResponseEntity.ok(new StatsResponseDto(newsLikes.toString(), true));
@@ -128,5 +128,14 @@ public class StatsController {
                     new StatsResponseDto(e.getMessage(), false)
             );
         }
+    }
+    @GetMapping("/get-likes/{newsId}")
+    public ResponseEntity<Integer> getLikes(@PathVariable("newsId") Long newsId) {
+        return ResponseEntity.ok(newsObjectService.getLikesCount(newsId));
+    }
+
+    @GetMapping("/get-shows/{newsId}")
+    public ResponseEntity<Integer> getShows(@PathVariable("newsId") Long newsId) {
+        return ResponseEntity.ok(newsObjectService.getShowsCount(newsId));
     }
 }

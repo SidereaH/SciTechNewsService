@@ -25,6 +25,18 @@ public class NewsObjectService {
     private final NewsMapper newsMapper;
 
     @Transactional(readOnly = true)
+    public Integer getShowsCount(Long id) {
+        NewsObject obj = newsObjectRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+        return obj.getShows();
+    }
+    @Transactional(readOnly = true)
+    public Integer getLikesCount(Long id) {
+        NewsObject obj = newsObjectRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+        return obj.getLikes();
+    }
+
+
+    @Transactional(readOnly = true)
     public NewsDto findByTitle(String title) {
         NewsObject newsObject = newsObjectRepo.findByTitle(title)
                 .orElseThrow(() -> new EntityNotFoundException("News not found with title: " + title));
