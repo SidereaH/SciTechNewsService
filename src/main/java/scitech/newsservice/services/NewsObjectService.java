@@ -82,7 +82,7 @@ public class NewsObjectService {
             return null;
         }
 
-        Status status = statusRepo.findByName(newsDto.getStatus())
+        Status status = statusRepo.findByName(newsDto.getStatus().toUpperCase())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid status: " + newsDto.getStatus()));
         news.setStatus(status);
 
