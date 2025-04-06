@@ -1,6 +1,7 @@
 CREATE DATABASE scitech_newsservice;
 CREATE DATABASE scitech_newsparser;
-CREATE DATABASE homerep_auth;
+CREATE DATABASE homerep_auth;CRE
+
 
 -- Таблица статусов
 CREATE TABLE status (
