@@ -14,6 +14,7 @@ import scitech.newsservice.repositories.NewsObjectRepo;
 import scitech.newsservice.repositories.StatusRepo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -70,9 +71,16 @@ public class NewsObjectService {
         return newsPage.map(newsMapper::toDto);
     }
 
-    @Transactional
+
     public NewsDto createNews(NewsDto newsDto) {
+
         NewsObject news = newsMapper.toEntity(newsDto);
+        if(newsObjectRepo.existsByTitle(news.getTitle())) {
+            return null;
+        }
+        if(newsObjectRepo.existsByContent(news.getContent())) {
+            return null;
+        }
 
         Status status = statusRepo.findByName(newsDto.getStatus())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid status: " + newsDto.getStatus()));
@@ -82,9 +90,18 @@ public class NewsObjectService {
             news.setDateOfCreation(LocalDate.now());
         }
 
-        NewsObject saved = newsObjectRepo.save(news);
+        NewsObject saved;
+        try {
+
+            saved = newsObjectRepo.save(news);
+        } catch (Exception e) {
+            log.error("Error saving news: {}", e.getMessage());
+            throw new RuntimeException("Failed to save news: " + newsDto.getTitle(), e);
+        }
+
         return newsMapper.toDto(saved);
     }
+
 
     @Transactional(readOnly = true)
     public Page<NewsDto> findAllWithFilters(
@@ -178,5 +195,15 @@ public class NewsObjectService {
         newsObjectRepo.save(newsObj);
         return newsObj.getShows();
     }
+    @Transactional
+    public List<NewsDto> createNewsFromList(List<NewsDto> newsDtos) {
+        List<NewsDto> newsObjects = new ArrayList<>();
+        for (NewsDto newsDto : newsDtos) {
 
+            NewsDto dto = createNews(newsDto);
+            newsObjects.add(dto);
+            log.info("News created: {}", dto);
+        }
+        return newsObjects;
+    }
 }

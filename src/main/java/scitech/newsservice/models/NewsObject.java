@@ -28,9 +28,11 @@ public class NewsObject {
     private String theme;
     @ManyToOne
     private Status status;
+    @Column(unique = true)
     private String title;
     private String description;
     @Lob
+    @Column(unique = true)
     private String content;
     private String url;
     private int likes;

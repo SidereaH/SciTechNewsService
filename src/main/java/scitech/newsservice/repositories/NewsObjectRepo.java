@@ -25,5 +25,6 @@ public interface NewsObjectRepo extends JpaRepository<NewsObject, Long> , JpaSpe
         Page<NewsObject> findByThemeContainingIgnoreCase(String theme, Pageable pageable);
 
         Page<NewsObject> findByOwnerId(Long ownerId, Pageable pageable);
-
+        boolean existsByTitle(String title);
+        boolean existsByContent(String content);
 }

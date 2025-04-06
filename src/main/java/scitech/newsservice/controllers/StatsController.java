@@ -9,8 +9,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import scitech.newsservice.models.dto.NewsDto;
 import scitech.newsservice.models.dto.StatsResponseDto;
 import scitech.newsservice.services.NewsObjectService;
 
@@ -149,3 +154,4 @@ public class StatsController {
         return ResponseEntity.ok(newsObjectService.delShows(newsId));
     }
 }
+
