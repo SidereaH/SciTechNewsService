@@ -163,4 +163,20 @@ public class NewsObjectService {
         return newsObj.getShows();
     }
 
+    @Transactional
+    public Integer delLikes(Long newsId) {
+        NewsObject newsObj = newsObjectRepo.findById(newsId).orElseThrow(() -> new EntityNotFoundException("News not found with id: " + newsId));
+
+        newsObj.setLikes(newsObj.getLikes() - 1);
+        newsObjectRepo.save(newsObj);
+        return newsObj.getLikes();
+    }
+    @Transactional
+    public Integer delShows(Long newsId) {
+        NewsObject newsObj = newsObjectRepo.findById(newsId).orElseThrow(() -> new EntityNotFoundException("News not found with id: " + newsId));
+        newsObj.setShows(newsObj.getShows() - 1);
+        newsObjectRepo.save(newsObj);
+        return newsObj.getShows();
+    }
+
 }

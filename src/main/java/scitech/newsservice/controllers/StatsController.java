@@ -138,4 +138,14 @@ public class StatsController {
     public ResponseEntity<Integer> getShows(@PathVariable("newsId") Long newsId) {
         return ResponseEntity.ok(newsObjectService.getShowsCount(newsId));
     }
+
+    @DeleteMapping("/del-like/{newsId}")
+    public ResponseEntity<Integer> delLike(@PathVariable("newsId") Long newsId) {
+        return ResponseEntity.ok(newsObjectService.delLikes(newsId));
+    }
+
+    @DeleteMapping("/del-show/{newsId}")
+    public ResponseEntity<Integer> delShow(@PathVariable("newsId") Long newsId) {
+        return ResponseEntity.ok(newsObjectService.delShows(newsId));
+    }
 }
