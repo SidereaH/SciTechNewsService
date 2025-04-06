@@ -78,9 +78,7 @@ public class NewsObjectService {
         if(newsObjectRepo.existsByTitle(news.getTitle())) {
             return null;
         }
-        if(newsObjectRepo.existsByContent(news.getContent())) {
-            return null;
-        }
+
 
         Status status = statusRepo.findByName(newsDto.getStatus().toUpperCase())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid status: " + newsDto.getStatus()));
