@@ -30,6 +30,10 @@ public class NewsObjectService {
                 .orElseThrow(() -> new EntityNotFoundException("News not found with title: " + title));
         return newsMapper.toDto(newsObject);
     }
+    public Page<NewsDto> findByTitle(String theme, Pageable pageable) {
+        Page<NewsObject> newsPage = newsObjectRepo.findByThemeContainingIgnoreCase(theme, pageable);
+        return newsPage.map(newsMapper::toDto);
+    }
 
     @Transactional(readOnly = true)
     public Page<NewsDto> findByDateRange(LocalDate start, LocalDate end, Pageable pageable) {

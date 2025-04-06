@@ -27,8 +27,12 @@ public class NewsObjectController {
 
     @Operation(summary = "Получить новость по заголовку")
     @GetMapping("/by-title")
-    public ResponseEntity<NewsDto> getByTitle(@RequestParam String title) {
-        return ResponseEntity.ok(newsService.findByTitle(title));
+    public ResponseEntity<Page<NewsDto>> getByTitle(
+            @RequestParam String title,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+        ) {
+        return ResponseEntity.ok(newsService.findByTitle(title, PageRequest.of(page, size)));
     }
 
     @Operation(summary = "Получить новости за указанный период")

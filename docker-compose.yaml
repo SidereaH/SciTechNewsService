@@ -14,15 +14,15 @@ services:
       - "5433:5432"
 
 
-#  user-service_test:
-#    image: aliquamsiderea/homerep_userservice:0.0.1
+#  scitech-newsservice:
+#    image: aliquamsiderea/scitech_newsservice:0.0.1
 ##    build: .
-#    container_name: userservice_container
+#    container_name: scitech-newsservice
 #    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-test:5432/homerep_userservice
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-test:5432/scitech-newsservice
 #      - SPRING_DATASOURCE_USERNAME=postgres
 #      - SPRING_DATASOURCE_PASSWORD=postgres
-#      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 #      - HOMEREP_SECRET=yo78$$dontCrackPleaseASdujisdufasbasu
 #      - HOMEREP_LIFETIME=600000
 #    ports:

@@ -16,6 +16,7 @@ import java.util.Optional;
 @Repository
 public interface NewsObjectRepo extends JpaRepository<NewsObject, Long> , JpaSpecificationExecutor<NewsObject> {
         Optional<NewsObject> findByTitle(String title);
+        Page<NewsObject> findByTitle(String title, Pageable pageable);
 
         Page<NewsObject> findByDateOfCreationBetween(LocalDate start, LocalDate end, Pageable pageable);
 

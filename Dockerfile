@@ -1,4 +1,4 @@
-FROM gradle:8.4-jdk21 AS builder
+FROM gradle:8.4-jdk17 AS builder
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ COPY . .
 
 RUN gradle --no-daemon clean build -x test
 
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
