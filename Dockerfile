@@ -16,8 +16,8 @@ WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar app.jar
 
 ENV SPRING_APPLICATION_NAME=SciTechNewsService
-ENV SERVER_PORT=8083
+ENV SERVER_PORT=5084
 
-EXPOSE 8083
+EXPOSE 5084
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

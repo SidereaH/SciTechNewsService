@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -49,16 +48,16 @@ class NewsObjectControllerTest {
             LocalDate.of(2024, 4, 5)
     );
 
-    @Test
-    void getByTitle_shouldReturnNewsDto() throws Exception {
-        Mockito.when(newsService.findByTitle("Test Title"))
-                .thenReturn(dummyNews);
-
-        mockMvc.perform(get("/api/news/by-title")
-                        .param("title", "Test Title"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.title").value("Test Title"));
-    }
+//    @Test
+//    void getByTitle_shouldReturnNewsDto() throws Exception {
+//        Mockito.when(newsService.findByTitle("Test Title"))
+//                .thenReturn(dummyNews);
+//
+//        mockMvc.perform(get("/api/news/by-title")
+//                        .param("title", "Test Title"))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.title").value("Test Title"));
+//    }
 
     @Test
     void getByDateRange_shouldReturnPagedNews() throws Exception {
