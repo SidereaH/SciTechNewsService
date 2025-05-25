@@ -7,7 +7,7 @@ RUN gradle --no-daemon dependencies
 
 COPY . .
 
-RUN gradle --no-daemon clean build -x test
+RUN gradle --no-daemon clean build
 
 FROM eclipse-temurin:17-jre
 
