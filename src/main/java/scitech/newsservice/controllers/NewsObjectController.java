@@ -136,6 +136,11 @@ public class NewsObjectController {
         return ResponseEntity.ok(newsService.createNewsFromList(newsDtos));
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<NewsDto> getNewsById(@PathVariable Long id) {
+        return ResponseEntity.ok(newsService.findById(id));
+    }
+
 }
 
                 

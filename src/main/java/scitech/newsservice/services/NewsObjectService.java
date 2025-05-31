@@ -204,4 +204,9 @@ public class NewsObjectService {
         }
         return newsObjects;
     }
+    @Transactional(readOnly = true)
+    public NewsDto findById(Long id) {
+        NewsObject newsObject = newsObjectRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("News not found with id: " + id));
+        return newsMapper.toDto(newsObject);
+    }
 }
